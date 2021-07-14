@@ -20,6 +20,12 @@ public class purchaseStepDefs {
     @When("User adds {string} from {string}")
     public void user_adds_from(String product, String category) {
         expectedPurhaseAMount+=adidasPage.productAdder(category,product);
+        System.out.println("expectedPurhaseAMount = " + expectedPurhaseAMount);
     }
 
+    @When("User removes {string} from cart")
+    public void user_removes_from_cart(String product) {
+        expectedPurhaseAMount-=adidasPage.productRemover(product);
+        System.out.println("expectedPurhaseAMount = " + expectedPurhaseAMount);
+    }
 }
