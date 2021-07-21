@@ -22,6 +22,11 @@ public class purchaseStepDefs {
         String orderID;
         int purchaseAmount;
 
+        int listPrice;
+        int addingPrice;
+        int cartPrice;
+
+
     @Given("User is on the Home Page")
     public void user_is_on_the_home_page() {
 
@@ -91,16 +96,24 @@ public class purchaseStepDefs {
     }
 
     @Then("User verifies list and cart price are same and they are equal to {string}")
-    public void userVerifiesListAndCartPriceAreSameAndTheyAreEqualTo(String arg0) {
-        
+    public void userVerifiesListAndCartPriceAreSameAndTheyAreEqualTo(String priceString) {
+        int expectedPrice = Integer.parseInt(priceString);
+
+        Assert.assertEquals(expectedPrice,listPrice);
+        Assert.assertEquals(addingPrice,cartPrice);
+
+
     }
 
     @And("User removes {string} from cart to verify the price")
-    public void userRemovesFromCartToVerifyThePrice(String arg0) {
-        
+    public void userRemovesFromCartToVerifyThePrice(String products) {
+        cartPrice = adidasPage.productRemover(products);
     }
 
     @When("User adds {string} from {string} to see the price")
-    public void userAddsFromToSeeThePrice(String arg0, String arg1) {
+    public void userAddsFromToSeeThePrice(String products, String category) {
+        String locator = "//a[.='"+products+"']/../../h5";
+        listPrice = Integer.parseInt(Driver.getDriver().findElement(By.xpath(locator)).getText().substring(1));
+        addingPrice = adidasPage.productAdder(category,products);
     }
 }
