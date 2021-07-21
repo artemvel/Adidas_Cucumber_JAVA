@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class AdidasPage {
     public AdidasPage(){
         PageFactory.initElements(Driver.getDriver(),this);
@@ -56,6 +58,9 @@ public class AdidasPage {
     @FindBy(xpath = "//button[@class=\"confirm btn btn-lg btn-primary\"]")
     public WebElement OK;
 
+    @FindBy(xpath = "//a[@class='hrefch']")
+    public List<WebElement> products;
+
     public int productAdder(String category, String product){
         Driver.getDriver().findElement(By.xpath("//a[.='"+category+"']")).click();
         BrowserUtils.sleep(1);
@@ -67,7 +72,7 @@ public class AdidasPage {
         int amount = Integer.parseInt(arrayAmount[0].substring(1));
 
         addCart.click();
-        BrowserUtils.sleep(1);
+        BrowserUtils.sleep(3);
         Alert alert = Driver.getDriver().switchTo().alert();
         alert.accept();
 
@@ -90,6 +95,7 @@ public class AdidasPage {
 
     public void fillForm() {
         Faker faker = new Faker();
+
         name.sendKeys(faker.name().fullName());
         country.sendKeys(faker.country().name());
         city.sendKeys(faker.country().capital());

@@ -8,6 +8,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class purchaseStepDefs {
 
@@ -19,7 +23,9 @@ public class purchaseStepDefs {
 
     @Given("User is on the Home Page")
     public void user_is_on_the_home_page() {
+
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+
     }
 
 
@@ -67,6 +73,20 @@ public class purchaseStepDefs {
         adidasPage.OK.click();
         BrowserUtils.sleep(1);
         Driver.closeDriver();
+    }
+
+    @Then("Under {string} category user should see the list of products")
+        public void under_category_user_should_see_the_list_of_products(String category, List<String> expectedProducts ) {
+            Driver.getDriver().findElement(By.xpath("//a[.='"+category+"']")).click();
+            BrowserUtils.sleep(2);
+
+            // we are getting webelements of product from the page and putting their text into a List of String
+            List<String> actualProducts = BrowserUtils.getElementsText(adidasPage.products);
+
+        System.out.println("actualProducts = " + actualProducts);
+        System.out.println("expectedProducts = " + expectedProducts);
+        Assert.assertEquals("verify the list of products", expectedProducts,actualProducts);
+
     }
 
 }
