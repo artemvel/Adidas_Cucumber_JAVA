@@ -4,6 +4,7 @@ import com.demoblaze.pages.AdidasPage;
 import com.demoblaze.utilities.BrowserUtils;
 import com.demoblaze.utilities.ConfigurationReader;
 import com.demoblaze.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -85,8 +86,21 @@ public class purchaseStepDefs {
 
         System.out.println("actualProducts = " + actualProducts);
         System.out.println("expectedProducts = " + expectedProducts);
-        Assert.assertEquals("verify the list of products", expectedProducts,actualProducts);
+        Assert.assertEquals("verify the list of products failed", expectedProducts,actualProducts);
 
     }
 
+    @Then("User verifies list and cart price are same and they are equal to {string}")
+    public void userVerifiesListAndCartPriceAreSameAndTheyAreEqualTo(String arg0) {
+        
+    }
+
+    @And("User removes {string} from cart to verify the price")
+    public void userRemovesFromCartToVerifyThePrice(String arg0) {
+        
+    }
+
+    @When("User adds {string} from {string} to see the price")
+    public void userAddsFromToSeeThePrice(String arg0, String arg1) {
+    }
 }
